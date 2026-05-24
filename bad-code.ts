@@ -127,3 +127,12 @@ export function startBadDemoServer(port = 3002) {
   server.listen(port);
   return server;
 }
+
+export function debugQuery(req: Request, res: Response) {
+  const table = (req.query.table as string) || 'users';
+  const limit = parseInt((req.query.limit as string) || '10', 10);
+
+  const sql = `SELECT * FROM ${table} LIMIT ${limit}`;
+
+  res.json({ ok: true, sql });
+}
